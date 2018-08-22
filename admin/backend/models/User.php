@@ -93,6 +93,14 @@ class User extends \yii\db\ActiveRecord
          */
         return $this->hasOne(Team::className(), ['id' => 'team_id']);
     }
+    public function getBankgroup()
+    {
+        /**
+         * 第一个参数为要关联的字表模型类名称，
+         *第二个参数指定 通过子表的 customer_id 去关联主表的 id 字段
+         */
+        return $this->hasOne(Bank::className(), ['user_id' => 'id']);
+    }
     /**
      * Generates password hash from password and sets it to the model
      *

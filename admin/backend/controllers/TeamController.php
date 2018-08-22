@@ -147,7 +147,12 @@ class TeamController extends \yii\web\Controller
 
         return $this->redirect(['list']);
     }
-
+    public function actionStatus($id){
+        $model = Team::findOne($id);
+        $model->status=2;
+        $model->save();
+        return $this->redirect(['list']);
+    }
     protected function findModel($id)
     {
         if (($model = Team::findOne($id)) !== null) {

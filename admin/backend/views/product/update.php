@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\AuthItem */
 
-$this->title = '更新用户 ';
+$this->title = '更新商品';
 ?>
 <div class="wrapper wrapper-content">
     <div class="ibox-content">

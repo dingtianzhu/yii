@@ -54,8 +54,7 @@ class OrderController extends \yii\web\Controller
         $data = Order::find();
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
         $user = $data->joinWith('usergroup')->joinWith('productgroup')->offset($pages->offset)->limit($pages->limit)->all();
-        // print_r($user);
-        // exit;
+      
         return $this->render('list',[
             'user'=>$user,
             'family'=>$family,

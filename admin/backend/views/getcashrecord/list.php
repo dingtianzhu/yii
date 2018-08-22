@@ -5,7 +5,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\bootstrap\Alert;
-$this->title = '用户列表';
+$this->title = '分红列表';
 $this->params['breadcrumbs'][] = $this->title;
 if( Yii::$app->getSession()->hasFlash('success') ) {
     echo Alert::widget([

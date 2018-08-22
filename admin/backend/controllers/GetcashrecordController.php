@@ -12,6 +12,7 @@ use backend\components\Tree;
 use backend\models\Family;
 use backend\models\Getcashrecord;
 use backend\models\Team;
+use backend\models\Sharemoney;
 use yii\bootstrap\Alert;
 use Yii;
 
@@ -31,40 +32,57 @@ class GetcashrecordController extends \yii\web\Controller
             if($_POST['username']!=''){
                 $username = $_POST['username'];
                 $data = Getcashrecord::find()->where(['username'=>$username]);
-                // $data = Order::find()->where(['user_id'=>$data['id']]);
-                // print_r($data);
-                // exit;
+                
             }else{
                 $data = Getcashrecord::find();
             }
             $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
-            // $user = $data->joinWith('usergroup')->offset($pages->offset)->limit($pages->limit)->all();
+            $user = $data->joinWith('usergroup')->offset($pages->offset)->limit($pages->limit)->all();   
             
-            // echo "<pre>";
-            // print_r($user);
-            // exit;
             
             return $this->render('list',[
                 'user'=>$user,
                 'pages' => $pages
             ]);
         }
-		// $family = Family::find();
-		// $family = $family->joinWith('usergroup')->all();
 		
         $data = Getcashrecord::find();
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
         $user = $data->joinWith('usergroup')->offset($pages->offset)->limit($pages->limit)->all();   
-        // foreach($user as $key=>$value)
-        // {
-        //     $user->$key=$user->joinWith('usersgroup')->offset($pages->offset)->limit($pages->limit)->all();
-        // }
-        // echo "<pre>";
-        // print_r($user);
-        // exit;
+        
         return $this->render('list',[
             'user'=>$user,
-            // 'family'=>$family,
+            
+            'pages' => $pages
+        ]);
+    }
+    public function actionSharemoneylist()
+    {
+        
+        if (Yii::$app->request->post()) {
+            if($_POST['username']!=''){
+                $username = $_POST['username'];
+                $data = Sharemoney::find()->where(['username'=>$username]);
+                
+            }else{
+                $data = Sharemoney::find();
+            }
+            $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
+            $user = $data->joinWith('usergroup')->joinWith('usersgroup')->joinWith('teamgroup')->offset($pages->offset)->limit($pages->limit)->all();  
+            
+            return $this->render('sharemoneylist',[
+                'user'=>$user,
+                'pages' => $pages
+            ]);
+        }
+		
+        $data = Sharemoney::find();
+        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
+        $user = $data->joinWith('usergroup')->joinWith('usersgroup')->joinWith('teamgroup')->offset($pages->offset)->limit($pages->limit)->all();   
+        
+        return $this->render('sharemoneylist',[
+            'user'=>$user,
+            
             'pages' => $pages
         ]);
     }

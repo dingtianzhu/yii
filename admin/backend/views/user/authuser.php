@@ -62,9 +62,9 @@ $this->params['breadcrumbs'][] = $this->title;
                            
                             <tr>
                                 <td colspan="2" class="text-center" style="line-height:300px;">
-                                <img src="data:image/png;base64,<?=$user['url1']?>" alt="" style="height: 250px;width: 150px;border-radius: 10px"></td>
+                                <img src="data:image/png;base64,<?=$user['url1']?>" alt="" style="height: 200px;width: 300px;border-radius: 10px"></td>
                                 <td colspan="2" class="text-center"style="line-height:300px;" >
-                                <img src="data:image/png;base64,<?=$user['url2']?>" style="height: 250px;width: 150px;border-radius: 10px" alt=""></td>
+                                <img src="data:image/png;base64,<?=$user['url2']?>" style="height: 200px;width: 300px;border-radius: 10px" alt=""></td>
                                 
                             </tr>
                             <tr >

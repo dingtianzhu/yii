@@ -4,8 +4,25 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-$this->title = '团队列表';
+use yii\bootstrap\Alert;
+$this->title = '分红列表';
 $this->params['breadcrumbs'][] = $this->title;
+if( Yii::$app->getSession()->hasFlash('success') ) {
+    echo Alert::widget([
+        'options' => [
+            'class' => 'alert-success', //这里是提示框的class
+        ],
+        'body' => Yii::$app->getSession()->getFlash('success'), //消息体
+    ]);
+}
+if( Yii::$app->getSession()->hasFlash('error') ) {
+    echo Alert::widget([
+        'options' => [
+            'class' => 'alert-error',
+        ],
+        'body' => Yii::$app->getSession()->getFlash('error'),
+    ]);
+}
 ?>
 <div class="wrapper wrapper-content">
     <div class="row">
@@ -15,50 +32,47 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h1><?= Html::encode($this->title) ?></h1>
                     <div class="row">
                     <div class="col-sm-3">
-                        <a class="btn btn-info btn-sm" href="<?= Url::toRoute('team/create')?>">新增团队</a>
+                        <!-- <a class="btn btn-info btn-sm" href="<?= Url::toRoute('getcashrecord/create')?>">新增用户</a> -->
                     </div>
                     <div class="col-sm-3 pull-right">
-                        <form action="<?=Url::toRoute('team/list')?>" method="post">
+                        <form action="<?=Url::toRoute('getcashrecord/list')?>" method="post">
                             <input type="hidden" name="_csrf-backend" value="<?= Yii::$app->getRequest()->getCsrfToken();?>" />
                             <div class="input-group">
-                                <input type="text" placeholder="团队名" name="teamname" class="input-sm form-control"> <span class="input-group-btn">
+                                <input type="text" placeholder="请输入用户名或工号" name="username" class="input-sm form-control"> <span class="input-group-btn">
                                         <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
                             </div>
                         </form>
                     </div>
                     </div>
                     <hr>
+                    
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>团队名称</th>
-                                <th>团员账号</th>
-                                <th>团员姓名</th>
-                                <th>团员角色</th>
-                                <th>总余额</th>
-                                <th>冻结余额</th>
-                                <th>创建时间</th>
-                                <th>加入时间</th>
-                                <!-- <th>操作</th> -->
+                                <th>帐号</th>
+                                <th>用户姓名</th>
+                                <th>所属团队</th>
+                                <th>金额</th>
+                                <th>分红备注</th>
+                                <th>分红时间</th>
+                                <th>入团会员账号姓名</th>
                             </tr>
                             </thead>
                             <tbody>
-
+                            <div class="alert-error"></div>
                             <?php foreach($user as $vo):?>
                                 <tr>
                                     <td><?=$vo['id']?></td>
-                                    <td><?=$vo['userteamgroup']['team_name']?></td>
-                                    <td><?=$vo['username']?></td>
-                                    <td><?=$vo['user_really_name']?></td>
-                                    <td><?=$vo['team_role']?></td>
-                                    <td><?=$vo['total_balance']?></td>
-                                    <td><?=$vo['freeze_balance']?></td>
-                                    <td><?=date('Y-m-d H:i:s',$vo['userteamgroup']['creat_time'])?></td>
-                                    <td><?=date('Y-m-d H:i:s',$vo['team_in_time'])?></td>
-
-                                        <!-- <td><a class="btn btn-primary btn-xs" href="<?=Url::toRoute(['team/teaminfo','id'=>$vo['id']])?>"><i class="fa fa-edit"></i>查看</a> </td> -->
+                                    <td><?=$vo['usergroup']['username']?></td>
+                                    <td><?=$vo['usergroup']['user_really_name']?></td>
+                                    <td><?=$vo['teamgroup']['team_name']?></td>
+                                    <td><?=$vo['amount']?></td>
+                                    <td><?=$vo['info']?></td>
+                                    <td><?= date('Y-m-d H:i:s',$vo['creat_time'])?></td>
+                                    <td>账号:<?=$vo['usersgroup']['username']?>姓名:<?=$vo['usersgroup']['user_really_name']?></td>
+                                    
                                 </tr>
                             <?php endforeach;?>
                             </tbody>

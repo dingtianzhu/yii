@@ -11,6 +11,7 @@ use backend\models\AuthAssignment;
 use backend\components\Tree;
 use backend\models\Family;
 use backend\models\Team;
+use backend\models\Bank;
 use Yii;
 
 class UserController extends \yii\web\Controller
@@ -35,7 +36,7 @@ class UserController extends \yii\web\Controller
             $family = Family::find();
 		    $family = $family->joinWith('usergroup')->all();
             $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
-            $user = $data->joinWith('usergroup')->joinWith('userteamgroup')->offset($pages->offset)->limit($pages->limit)->all();
+            $user = $data->joinWith('usergroup')->joinWith('bankgroup')->joinWith('userteamgroup')->offset($pages->offset)->limit($pages->limit)->all();
             return $this->render('list',[
                 'user'=>$user,
                 'family'=>$family,
@@ -48,7 +49,7 @@ class UserController extends \yii\web\Controller
 		
         $data = User::find();
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
-        $user = $data->joinWith('usergroup')->joinWith('userteamgroup')->offset($pages->offset)->limit($pages->limit)->all();
+        $user = $data->joinWith('usergroup')->joinWith('bankgroup')->joinWith('userteamgroup')->offset($pages->offset)->limit($pages->limit)->all();
         return $this->render('list',[
             'user'=>$user,
             'family'=>$family,
@@ -229,7 +230,7 @@ class UserController extends \yii\web\Controller
         // print_r($count);
         // exit;
         // $model->save();
-        $status=Yii::$app->db->createCommand("update `user` set auth_status='$count'")->execute();
+        $status=Yii::$app->db->createCommand("update `user` set auth_status='$count' where id = '$id'")->execute();
         return $this->redirect(['user/list']);
     }
     //删除用户

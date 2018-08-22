@@ -3,7 +3,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
+
 use yii\widgets\LinkPager;
+// use yii\widgets\Dialog;
+// use kartik\dialog\Dialog;
+ 
+// widget with default options
+// echo Dialog::widget();
 $this->title = '团队列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -35,12 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <th>序号</th>
                                 <th>团队名称</th>
                                 <th>团员账号</th>
-                                <th>团长</th>
-
-                                
+                                <th>团长</th> 
                                 <th>创建时间</th>
                                 <th>团队状态</th>
                                 <th>团队人数</th>
+                                <th>团队总收款</th>
+                                <th>团队总分红</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -55,7 +61,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <td><?=date('Y-m-d H:i:s',$vo['creat_time'])?></td>
                                     <td><?php switch($vo['status']){case 1:echo '申请中';break;case 2:echo '正常';break;case 3:echo '冻结';break;}?></td>
                                     <td><?=$vo['count']?></td>
-                                    <td><a class="btn btn-primary btn-xs" href="<?=Url::toRoute(['team/teaminfo','id'=>$vo['id']])?>"><i class="fa fa-edit"></i>查看</a> </td>
+                                    <td><?=$vo['total_balance']?></td>
+                                    <td><?=$vo['total_share']?></td>
+                                    <td><a class="btn btn-primary btn-xs" href="<?=Url::toRoute(['team/teaminfo','id'=>$vo['id']])?>"><i class="fa fa-edit"></i>查看</a> <a type="button" href="<?=Url::toRoute(['team/status','id'=>$vo['id']])?>"class="btn btn-success btn-xs" >审核通过</a></td>
                                 </tr>
                             <?php endforeach;?>
                             </tbody>
@@ -76,3 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+
+
+

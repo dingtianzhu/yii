@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-$this->title = '商品列表';
+$this->title = '商品使用状态';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="wrapper wrapper-content">
